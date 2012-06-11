@@ -10,7 +10,7 @@ Dependências
 
 Para rodar o Folder-Video você precisará de:
 
-- Python
+- Python 2.7
 - Firefox 4+, Chrome 6+
 - Vídeos no formato: mp4, webm, ogg para Chrome
 - Vídeos no formato: webm, ogg para Firefox
@@ -24,6 +24,7 @@ Para rodar o Folder-Video você precisará de:
 
 Como usar
 -----------
+**Linux/Mac OSX:**
 Copie o arquivo "foldervideo.py" para uma pasta que contenha seus vídeos.
 
 Dê permissão de execução:
