@@ -6,7 +6,12 @@
 
 import os
 import sys
-import subprocess
+import webbrowser
+
+pasta_origem = os.listdir("../")
+pasta_origem.sort()
+arquivo_destino = "index.html"
+formatos_aceitos = ["mp4","ogv","webm"]
 
 cmd = os.getcwd()
 folder = cmd.split('/')
@@ -14,31 +19,9 @@ n = len(folder)
 pasta_atual = folder[n-1]
 local_storage = pasta_atual.replace(' ', '')
 
-pasta_origem = os.listdir("./")
-pasta_origem.sort()
-arquivo_destino = "index.html"
-formatos_aceitos = ["mp4","ogv","webm"]
-arquivos_local = "./foldervideo"
-escreve = open(arquivo_destino, 'w')
-
-jquery = "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-videojs = "http://vjs.zencdn.net/c/video.js"
-videojscss = "http://vjs.zencdn.net/c/video-js.css"
-
-parametro = ""
-if len(sys.argv) > 1:
-    parametro = sys.argv[1]
-
-if not os.path.exists(arquivos_local):
-    subprocess.call(["mkdir %s" % arquivos_local], shell=True)
-    if parametro and parametro == "--local":
-        subprocess.call(["cd %s && wget %s" % (arquivos_local, jquery)], shell=True)
-        subprocess.call(["cd %s && wget %s" % (arquivos_local, videojs)], shell=True)
-        subprocess.call(["cd %s && wget %s" % (arquivos_local, videojscss)], shell=True)
-        subprocess.call(["cd %s && wget https://github.com/zencoder/video-js/blob/master/design/video-js.png?raw=true && mv video-js.png?raw=true video-js.png" % arquivos_local], shell=True)
-        jquery = "jquery.min.js"
-        videojs = "video.js"
-        videojscss = "video-js.css"
+jquery = "jquery.min.js"
+videojs = "video.min.js"
+videojscss = "video-js.min.css"
 
 quantidade = 0
 lista_videos = []
@@ -56,6 +39,8 @@ for arquivos in pasta_origem:
         
 print "--- %d arquivos tratados" % quantidade
 quantidade += 1
+
+escreve = open(arquivo_destino, 'w')
 
 html="""
 <!DOCTYPE html>
@@ -105,7 +90,7 @@ button.pause {
 <body>
     <video id="video" class="video-js vjs-default-skin"  
       controls preload="auto" width="640" height="360" 
-      data-setup='{"example_option":true}'>
+      data-setup="{}">
 """
 escreve.write(html)
 
@@ -225,4 +210,18 @@ $(".pause").click(function() {
 escreve.write(html)
 escreve.close()
 
-subprocess.call(["mv index.html %s" % arquivos_local], shell=True)
+def openurl(url):
+  try:
+    webbrowser.open(url)
+  except ImportError: # pre-webbrowser.py compatibility
+    if sys.platform == 'win32':
+      os.system('start "%s"' % url)
+    elif sys.platform == 'mac':
+      try: import ic
+      except ImportError: pass
+      else: ic.launchurl(url)
+    else:
+      rc = os.system('google-chrome -remote "openURL(%s)" &' % url)
+      if rc: os.system('google-chrome "%s" &' % url)
+
+openurl(arquivo_destino)

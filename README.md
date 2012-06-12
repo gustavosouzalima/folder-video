@@ -24,19 +24,12 @@ Para rodar o Folder-Video você precisará de:
 
 Como usar
 -----------
-**Linux/Mac OSX:**
-Copie o arquivo "foldervideo.py" para uma pasta que contenha seus vídeos.
+**No Linux/Mac OSX:**
+1º Copie a pasta "folder-video" para dentro de uma pasta que contenha seus vídeos.
+2º Entre na pasta "folder-video" e dê permissão de execução: $ chmod +x foldervideo.py
+3º Agora basta executar o programa: $ python foldervideo.py
+4º Abra o "index.html" no Chrome ou Firefox. Pronto! simples assim!
 
-Dê permissão de execução:
-$ chmod +x foldervideo.py
-
-Agora basta executar o programa:
-$ python foldervideo.py
-
-
-**Opcional:**
-Se você quiser ter todos os arquivos necessários (jquery, videojs e etc) baixados no seu computador e não diretamente da internet:
-$ python foldervideo.py --local
 
 ---------------------------------------
 
@@ -54,8 +47,6 @@ Changelog
 TO DO:
 
 - Melhorar a UI, inicialmente está feio e sem grandes estilizações :(
-- Fallback para vídeos em outros formatos.
-- Abrir automaticamente pagina após executado script "foldervideo.py".
 
 ---------------------------------------
 
